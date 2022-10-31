@@ -8,18 +8,18 @@
 
 #include "nanotrack.hpp" 
 
-void cxy_wh_2_rect(const cv::Point& pos, const cv::Point2f& sz, cv::Rect &rect)
-{
+void cxy_wh_2_rect(const cv::Point& pos, const cv::Point2f& sz, cv::Rect &rect) 
+{   
     rect.x = max(0, pos.x - int(sz.x / 2));
     rect.y = max(0, pos.y - int(sz.y / 2));
     rect.width = int(sz.x);   
-    rect.height = int(sz.y);  
+    rect.height = int(sz.y);    
 }
 
 void track(NanoTrack *siam_tracker, const char *video_path)
 
 {
-    // Read video
+    // Read video 
     cv::VideoCapture capture; 
     bool ret;
     if (strlen(video_path)==1)

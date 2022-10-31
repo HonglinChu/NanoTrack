@@ -27,9 +27,9 @@ struct Config{
     std::vector<float> window;
 
     int stride = 16;
-    float penalty_k = 0.15;
-    float window_influence = 0.476;
-    float lr = 0.38;
+    float penalty_k = 0.148;
+    float window_influence = 0.462;
+    float lr = 0.390;
     int exemplar_size=127;
     int instance_size=255;
     int total_stride=16;
