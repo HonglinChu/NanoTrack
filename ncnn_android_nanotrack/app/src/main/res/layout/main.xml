@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
+        android:id="@+id/header"
         android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/buttonSwitchCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="切换摄像头" />
+        <Button
+            android:id="@+id/buttonSwitchCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换摄像头" />
 
-    </LinearLayout>
+        <Spinner
+            android:id="@+id/spinnerCPUGPU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/cpugpu_array" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-    <Spinner
-        android:id="@+id/spinnerModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawSelectorOnTop="true"
-        android:entries="@array/model_array" />
-
-    <Spinner
-        android:id="@+id/spinnerCPUGPU"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawSelectorOnTop="true"
-        android:entries="@array/cpugpu_array" />
+        <Spinner
+            android:id="@+id/spinnerModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/model_array" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="初始化" />
-
     </LinearLayout>
 
     <SurfaceView
         android:id="@+id/cameraview"
+        android:layout_below="@id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.tencent.trackncnn.GameView
+        android:id="@+id/gameView"
+        android:layout_below="@id/header"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
-</LinearLayout>
+</RelativeLayout>
