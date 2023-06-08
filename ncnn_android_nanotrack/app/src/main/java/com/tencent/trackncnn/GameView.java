@@ -1,6 +1,7 @@
 package com.tencent.trackncnn;
 
-import android.view.View;
+import android.util.AttributeSet;
+import android.view.SurfaceView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
+
 public class GameView extends View {
     private Paint mPaint = null;
     private int StrokeWidth = 5;
@@ -15,19 +17,30 @@ public class GameView extends View {
     private boolean IsClicked = false;
     public Rect rect = new Rect(0,0,0,0);
 
-    public GameView(Context context){
+    public GameView(Context context) {
         super(context);
         mPaint = new Paint();
         mPaint.setColor(Color.RED);
     }
+
+    public GameView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mPaint = new Paint();
+        mPaint.setColor(Color.RED);
+    }
+
+    public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mPaint = new Paint();
+        mPaint.setColor(Color.RED);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mPaint.setAntiAlias(true);
-        //canvas.drawARGB(25, 255, 0, 0);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(StrokeWidth);
-        //mPaint.setColor(Color.GREEN);
         mPaint.setAlpha(100);
         mPaint.setColor(Color.RED);
         canvas.drawRect(rect,mPaint);

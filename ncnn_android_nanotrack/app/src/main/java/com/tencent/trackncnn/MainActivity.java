@@ -28,9 +28,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.RelativeLayout;
-//import android.support.v4.app.ActivityCompat;
-//import android.support.v4.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -40,14 +37,13 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
     public static final int REQUEST_CAMERA = 100;
 
     private NanoTrack trackncnn = new NanoTrack();
-    private int facing = 0;
+    private int facing = 1;
 
     private Spinner spinnerModel;
     private Spinner spinnerCPUGPU;
     private int current_model = 0;
     private int current_cpugpu = 0;
     private  GameView gameView;
-    private SurfaceView cameraView;
     int ScreenHeight ;
     int ScreenWidth ;
     /** Called when the activity is first created. */
@@ -57,31 +53,24 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        gameView = new GameView(this); // 让  与 activity 关联
+        gameView = findViewById(R.id.gameView); // 让  与 activity 关联
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        cameraView = (SurfaceView) findViewById(R.id.cameraview);
+        SurfaceView cameraView = findViewById(R.id.cameraview);
 
         cameraView.getHolder().setFormat(PixelFormat.RGBA_8888);
         cameraView.getHolder().addCallback(this);
 
-        Button buttonSwitchCamera = (Button) findViewById(R.id.buttonSwitchCamera);
-        buttonSwitchCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-
-                int new_facing = 1 - facing;
-
-                trackncnn.closeCamera();
-
-                trackncnn.openCamera(new_facing);
-
-                facing = new_facing;
-            }
+        Button buttonSwitchCamera = findViewById(R.id.buttonSwitchCamera);
+        buttonSwitchCamera.setOnClickListener(view -> {
+            int new_facing = 1 - facing;
+            trackncnn.closeCamera();
+            trackncnn.openCamera(new_facing);
+            facing = new_facing;
         });
 
-        spinnerModel = (Spinner) findViewById(R.id.spinnerModel);
+        spinnerModel = findViewById(R.id.spinnerModel);
         spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
@@ -89,7 +78,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
                 if (position != current_model)
                 {
                     current_model = position;
-                    reload();
                 }
             }
 
@@ -99,7 +87,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
             }
         });
 
-        spinnerCPUGPU = (Spinner) findViewById(R.id.spinnerCPUGPU);
+        spinnerCPUGPU = findViewById(R.id.spinnerCPUGPU);
         spinnerCPUGPU.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id)
@@ -107,7 +95,6 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
                 if (position != current_cpugpu)
                 {
                     current_cpugpu = position;
-                    reload();
                 }
             }
 
@@ -116,25 +103,14 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback
             {
             }
         });
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View arg0) {
-                trackncnn.initTemplate(gameView.rect.left,gameView.rect.top,gameView.rect.width(),gameView.rect.height(),ScreenWidth);
-                gameView.SelectRect();
-           }
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(view -> {
+            reload();
+            trackncnn.initTemplate(gameView.rect.left,gameView.rect.top,gameView.rect.width(),gameView.rect.height(),ScreenWidth);
+            gameView.SelectRect();
         });
-        RelativeLayout.LayoutParams p = new  RelativeLayout.LayoutParams(
-                 RelativeLayout.LayoutParams.WRAP_CONTENT,
-                 RelativeLayout.LayoutParams.WRAP_CONTENT
-         );
-        //get cameraview position
-        //stupid method, I'm noob about android,maybe you can replace it with some function
-        p.topMargin = 100;
-        addContentView(gameView, p);
-        reload();
 
-        //
+        reload();
         Display display = this.getWindowManager().getDefaultDisplay();
         Point outSize = new Point();
         display.getSize(outSize);

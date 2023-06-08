@@ -5,11 +5,11 @@ plugins {
 android {
     compileSdk 31
 
-    ndkPath "/Users/chuhonglin/Library/Android/sdk/ndk/21.1.6352462"
+    ndkVersion "21.1.6352462"
 
     defaultConfig {
         applicationId "com.example.ncnn_android_nanotrack" //"com.example.android_mobilenet"
-        minSdk 29 // Android版本设置 24 对应 Android7.0 GPU ,调用NCNN的GPU，要求版本大于24
+        minSdk 24 // Android版本设置 24 对应 Android7.0 GPU ,调用NCNN的GPU，要求版本大于24
         targetSdk 31
         versionCode 1
         versionName "1.0"
